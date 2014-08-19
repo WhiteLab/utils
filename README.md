@@ -1,4 +1,4 @@
 utils
 =====
 
-General sequence data utilities.
+General utilities.
