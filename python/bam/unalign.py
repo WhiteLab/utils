@@ -40,6 +40,6 @@ if __name__ == '__main__':
                       help='File for output. [STDOUT]')
 
   # Positional arguments.
-  parser.add_argument('bam',dest='bam',help='Bam file to unalign.')
+  parser.add_argument('bam',help='Bam file to unalign.')
 
   main(parser.parse_args())
