@@ -13,6 +13,7 @@ def unalign(ifs,ofs):
 
   for read in ifs:
     # TODO delete alignment fields
+    del read.pos
     ofs.write(read)
 
 def main(args):
@@ -25,8 +26,13 @@ def main(args):
 
   # Unalign the bam file.
   logging.info('Unaligning %s to %s' % (args.bam,args.out))
+
   ifs = pysam.Samfile(args.bam)
-  ofs = pysam.Samfile(args.out,'wb',header = ifs.header)
+
+  header = ifs.header
+  if 'PG' in header: del header['PG']
+
+  ofs = pysam.Samfile(args.out,'wb',header = header)
   unalign(ifs,ofs)
 
 if __name__ == '__main__':
