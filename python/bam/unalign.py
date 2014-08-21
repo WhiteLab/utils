@@ -13,8 +13,9 @@ def unalign(ifs,ofs):
 
   for read in ifs:
     # TODO delete alignment fields
-    del read.pos
-    ofs.write(read)
+    unaligned = pysam.AlignedRead()
+    unaligned.seq = read.seq
+    ofs.write(unaligned)
 
 def main(args):
 
