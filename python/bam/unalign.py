@@ -26,7 +26,7 @@ def main(args):
   # Unalign the bam file.
   logging.info('Unaligning %s to %s' % (args.bam,args.out))
   ifs = pysam.Samfile(args.bam)
-  ofs = pysam.Samfile(args.out,'wb')
+  ofs = pysam.Samfile(args.out,'wb',header = ifs.header)
   unalign(ifs,ofs)
 
 if __name__ == '__main__':
