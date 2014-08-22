@@ -14,6 +14,12 @@ def unalign(ifs,ofs,tags=None):
   # Generate a new read that we'll use as the base.
   unaligned = pysam.AlignedRead()
 
+  # Set target reference and position to unknown.
+  unaligned.tid = -1
+  unaligned.pos = -1
+  unaligned.rnext = -1
+  unaligned.pnext = -1
+
   # Prepare the tag set to keep.
   tags = tags and set(tags) or set([])
 
@@ -28,13 +34,8 @@ def unalign(ifs,ofs,tags=None):
     # Copy reference to paired sequence, if exists.
     unaligned.rnext = read.rnext
 
-    # Set target reference and position to unknown.
-    unaligned.tid = -1
-    unaligned.pos = -1
-    unaligned.rnext = -1
-    unaligned.pnext = -1
-
     # Copy any applicable flags.
+    unaligned.flag = 0x0
     if read.is_paired: unaligned.flag = 0x1   | unaligned.flag
     if read.is_read1:  unaligned.flag = 0x40  | unaligned.flag
     else:              unaligned.flag = 0x80  | unaligned.flag
